@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Quick script to add training schools to data file.
-
-Kilian Lieret 2020
+Quick script to add training schools to the data file.
 """
 
 import yaml
