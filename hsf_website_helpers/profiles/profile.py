@@ -5,6 +5,8 @@ from pathlib import Path
 # 3rd
 import oyaml as yaml  # same as normal yaml, only it keeps order of keys
 
+from hsf_website_helpers.util.log import logger
+
 
 class Profile:
     match_keys = [
@@ -58,7 +60,8 @@ class Profile:
 
     @classmethod
     def from_file(cls, path: Path) -> "Profile":
-        lines = path.read_text().split("\n")
+        logger.debug(f"Reading {path}")
+        lines = path.read_text(encoding="utf-8").split("\n")
         header_lines = []
         content_lines = []
         is_content = False
@@ -77,6 +80,7 @@ class Profile:
         p = cls()
         p.header = yaml.safe_load("\n".join(header_lines))
         p.content = "\n".join(content_lines)
+        p.path = path
         p.check()
         return p
 
@@ -89,16 +93,23 @@ class Profile:
         ):
             return True
         for key in self.match_keys:
-            if "" != self.header.get(key, "") == other.header.get(key, ""):
+            value = self.header.get(key, "")
+            if value and value == other.header.get(key, ""):
                 return True
         return False
 
-    def to_file(self, path: Path) -> None:
+    def to_file(self, path: Optional[Path] = None) -> Path:
+        if path is None:
+            if self.path:
+                path = self.path
+            else:
+                raise ValueError("Either supply path as argument or attribute.")
         new_file_content = "---\n"
         new_file_content += yaml.dump(self.header)
         new_file_content += "---\n"
         new_file_content += self.content
         path.write_text(new_file_content)
+        return path
 
     def update(self, newer: "Profile"):
         for key in self.merge_update:
@@ -106,5 +117,6 @@ class Profile:
                 set(self.header.get(key, []) + newer.header.get(key, []))
             )
         for key in self.easy_update:
-            if newer.header.get(key, "").strip() != "":
-                self.header[key] = newer.header[key]
+            value = newer.header.get(key, "")
+            if value is None or value.strip() != "":
+                self.header[key] = newer.header.get(key, None)

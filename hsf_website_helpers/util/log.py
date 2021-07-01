@@ -4,7 +4,7 @@ import logging
 from typing import Union
 
 
-LOG_DEFAULT_LEVEL = logging.INFO
+LOG_DEFAULT_LEVEL = logging.DEBUG
 
 
 def get_logger():
