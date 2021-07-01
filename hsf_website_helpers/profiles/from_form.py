@@ -40,5 +40,8 @@ def profiles_from_google_form(df: pd.DataFrame) -> Iterable[Profile]:
                     role for role in available_roles if role in value
                 ]
             else:
+                if value == "":
+                    value = None
                 p.header[k] = value
+        p.header["layout"] = "educator"
         yield p
