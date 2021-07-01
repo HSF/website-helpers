@@ -10,6 +10,10 @@ import yaml
 import datetime
 from pathlib import Path
 from typing import List, Optional, Union
+import argparse
+
+
+from hsf_website_helpers.util.cli import add_website_home_option
 
 
 class Event:
@@ -47,7 +51,7 @@ class Event:
             if not self.deadline <= self.date:
                 raise ValueError(
                     f"Deadline {self.deadline} is after start date {self.date}"
-                    f" for training evnet '{self.title}'."
+                    f" for training event '{self.title}'."
                 )
         assert self.title
 
@@ -117,11 +121,11 @@ class EventDatabase:
 
 
 if __name__ == "__main__":
-    path = (
-        Path(__file__).resolve().parent.parent
-        / "_data"
-        / "training-schools.yml"
-    )
+    parser = argparse.ArgumentParser(description=__file__.__doc__)
+    add_website_home_option(parser)
+    args = parser.parse_args()
+    print(args.home)
+    path = args.home / "_data" / "training-schools.yml"
     if path.is_file():
         edb = EventDatabase.from_file(path)
         print(f"Loaded {len(edb.events)} events from database.")
@@ -131,6 +135,6 @@ if __name__ == "__main__":
     edb.add_event(Event.input())
     edb.write(path)
     print(
-        "Added event to database. Please commit and submit a PR to add it to the"
-        " webpage."
+        "Added event to database. Please commit and submit a PR to add it to "
+        "the webpage."
     )
