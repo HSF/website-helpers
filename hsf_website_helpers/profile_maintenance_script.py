@@ -16,7 +16,7 @@ profile_directory = this_directory.parent / "_educators"
 
 
 def get_content_header(lines: List[str]) -> Tuple[str, Dict[str, Any]]:
-    """ Get header of Jekyll file
+    """Get header of Jekyll file
 
     Args:
         lines: Lines of profile
@@ -48,7 +48,7 @@ def get_content_header(lines: List[str]) -> Tuple[str, Dict[str, Any]]:
 def read_transform_write(
     path: Path, header_transform_fct: Callable[[Dict[str, Any]], Dict[str, Any]]
 ) -> None:
-    """ Opens profile, reads it, transforms the header, writes back
+    """Opens profile, reads it, transforms the header, writes back
 
     Args:
         path: Path to open
@@ -70,16 +70,17 @@ def read_transform_write(
 
 
 def change_key(self, old, new):
-    """ Change key in ordered dictionary """
+    """Change key in ordered dictionary"""
     return {new if key == old else key: value for key, value in self.items()}
+
 
 # ------------------------------------------------------------------------------
 # Transformation functions
 # ------------------------------------------------------------------------------
 
+
 def linked_in_handle_instead_url(header: Dict[str, Any]) -> Dict[str, Any]:
-    """ Use linkedin handles rather than full URL
-    """
+    """Use linkedin handles rather than full URL"""
     linkedin = header.get("linkedin")
     if linkedin is None:
         return header
@@ -93,7 +94,7 @@ def linked_in_handle_instead_url(header: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def rename_training_only_keys(header: Dict[str, Any]) -> Dict[str, Any]:
-    """ Rename some keys to generalize profiles """
+    """Rename some keys to generalize profiles"""
 
     header = change_key(header, "years", "training_years")
     header = change_key(header, "roles", "training_roles")
@@ -112,7 +113,7 @@ def rename_training_only_keys(header: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def main():
-    """ Loop over all profiles and apply read_transform_write.
+    """Loop over all profiles and apply read_transform_write.
 
     MAKE SURE YOU SET THE RIGHT TRANSFORMATION FUNCTION HERE!
 

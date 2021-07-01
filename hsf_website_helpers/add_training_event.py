@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import List, Optional, Union
 
 
-class Event(object):
+class Event:
 
     default_false = ["url_proof_ignore"]
 
@@ -21,7 +21,8 @@ class Event(object):
         title: str,
         date: Union[str, datetime.date],
         end_date: Union[str, datetime.date],
-        source: str, author: str,
+        source: str,
+        author: str,
         deadline: Union[str, datetime.date] = "",
         url_proof_ignore=False,
         tags=None,
@@ -68,7 +69,7 @@ class Event(object):
             deadline=input("Deadline [YYYY-MM-DD or ''] ").strip(),
             source=input("Url ").strip(),
             author=input("Author ").strip(),
-            tags=input("Tags (comma separated)").strip()
+            tags=input("Tags (comma separated)").strip(),
         )
         return tmp_event
 
@@ -79,13 +80,14 @@ class Event(object):
                 dct.pop(key)
         return dct
 
-class EventDatabase(object):
+
+class EventDatabase:
     def __init__(self, events: Optional[List[Event]] = None):
         if events is not None:
             self.events = events
         else:
             self.events = []
-    
+
     @classmethod
     def from_file(cls, path: Path):
         with path.open() as stream:
@@ -98,7 +100,7 @@ class EventDatabase(object):
     @staticmethod
     def sort_key(event: Event):
         return event.date
-    
+
     def write(self, path: Path):
         with path.open("w") as stream:
             yaml.dump(
@@ -107,15 +109,19 @@ class EventDatabase(object):
                     for event in sorted(self.events, key=self.sort_key)
                 ],
                 stream,
-                default_flow_style=False
+                default_flow_style=False,
             )
-        
+
     def add_event(self, event: Event):
         self.events.append(event)
 
 
 if __name__ == "__main__":
-    path = Path(__file__).resolve().parent.parent / "_data" / "training-schools.yml"
+    path = (
+        Path(__file__).resolve().parent.parent
+        / "_data"
+        / "training-schools.yml"
+    )
     if path.is_file():
         edb = EventDatabase.from_file(path)
         print(f"Loaded {len(edb.events)} events from database.")
@@ -124,5 +130,7 @@ if __name__ == "__main__":
         edb = EventDatabase()
     edb.add_event(Event.input())
     edb.write(path)
-    print("Added event to database. Please commit and submit a PR to add it to the"
-          " webpage.")
+    print(
+        "Added event to database. Please commit and submit a PR to add it to the"
+        " webpage."
+    )
