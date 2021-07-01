@@ -19,10 +19,42 @@ class Profile:
         "email",
     ]
 
+    merge_update = ["training_roles", "training_years"]
+
+    easy_update = [
+        "country",
+        "github",
+        "homepage",
+        "gravatar",
+        "twitter",
+        "gitlab",
+        "bitbucket",
+        "orcide",
+        "linkedin",
+        "email",
+    ]
+
     def __init__(self):
         self.path: Optional[Path] = None
         self.content = ""
         self.header: Dict[str, Any] = {}
+
+    def check(self):
+        assert self.header.get("title", "") != ""
+
+    def get_new_path(self, basepath: Optional[Path]) -> Path:
+        """Format path based on title"""
+        if self.header.get("title", "") == "":
+            raise ValueError("Couldn't get title.")
+        title = self.header["title"]
+        # Remove (she/her) things
+        title = title.split("(")[0]
+        title = title.lower().strip()
+        title = title.replace(" ", "_")
+        title += ".md"
+        if basepath is None:
+            basepath = Path.cwd()
+        return basepath / title
 
     @classmethod
     def from_file(cls, path: Path) -> "Profile":
@@ -45,6 +77,7 @@ class Profile:
         p = cls()
         p.header = yaml.safe_load("\n".join(header_lines))
         p.content = "\n".join(content_lines)
+        p.check()
         return p
 
     def same_person(self, other: "Profile") -> bool:
@@ -66,3 +99,12 @@ class Profile:
         new_file_content += "---\n"
         new_file_content += self.content
         path.write_text(new_file_content)
+
+    def update(self, newer: "Profile"):
+        for key in self.merge_update:
+            self.header[key] = sorted(
+                set(self.header.get(key, []) + newer.header.get(key, []))
+            )
+        for key in self.easy_update:
+            if newer.header.get(key, "").strip() != "":
+                self.header[key] = newer.header[key]

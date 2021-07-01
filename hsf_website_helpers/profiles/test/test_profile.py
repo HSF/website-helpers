@@ -1,5 +1,6 @@
 # std
 from pathlib import Path
+import copy
 
 # 3rd
 import pytest
@@ -43,3 +44,13 @@ def test_profile_to_from_identical(test_profile, tmp_path):
 
 def test_same_person_idential(test_profile):
     assert test_profile.same_person(test_profile)
+
+
+def test_profile_update(test_profile):
+    p = copy.deepcopy(test_profile)
+    q = copy.deepcopy(test_profile)
+    q.header["country"] = "GB"
+    q.header["training_years"] = [1990]
+    p.update(q)
+    assert p.header["country"] == "GB"
+    assert p.header["training_years"] == [1990, 2020]
