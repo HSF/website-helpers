@@ -11,9 +11,6 @@ from pathlib import Path
 import oyaml as yaml  # same as normal yaml, only it keeps order of keys
 from typing import List, Callable, Tuple, Dict, Any
 
-this_directory = Path(__file__).resolve().parent
-profile_directory = this_directory.parent / "_educators"
-
 
 def get_content_header(lines: List[str]) -> Tuple[str, Dict[str, Any]]:
     """Get header of Jekyll file
@@ -107,24 +104,3 @@ def rename_training_only_keys(header: Dict[str, Any]) -> Dict[str, Any]:
     # if roles is not None:
     #     header["training-roles"] = roles
     # return header
-
-
-# ------------------------------------------------------------------------------
-
-
-def main():
-    """Loop over all profiles and apply read_transform_write.
-
-    MAKE SURE YOU SET THE RIGHT TRANSFORMATION FUNCTION HERE!
-
-    Returns:
-        None
-    """
-    for file in profile_directory.iterdir():
-        if "readme" in file.name.lower():
-            continue
-        read_transform_write(file, rename_training_only_keys)
-
-
-if __name__ == "__main__":
-    main()
