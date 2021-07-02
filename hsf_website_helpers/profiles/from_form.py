@@ -25,6 +25,9 @@ available_roles = ["mentor", "instructor", "facilitator"]
 
 
 def profiles_from_google_form(df: pd.DataFrame) -> Iterable[Profile]:
+    """Yields profiles from rows of a dataframe (usually the dataframe that is
+    loaded from the google spreadsheet results of a google form)
+    """
     df = df.astype("str")
     df = df.rename(columns=header_mapping)
     for row in df.iterrows():
