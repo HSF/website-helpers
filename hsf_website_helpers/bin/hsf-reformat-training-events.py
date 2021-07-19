@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 """
-Quick script to add training schools to the data file.
+Quick script to read all training schools from data file and write them out
+again to e.g. update the formatting.
 """
 
 import argparse
 
-from hsf_website_helpers.events.event import Event, EventDatabase
+from hsf_website_helpers.events.event import EventDatabase
 from hsf_website_helpers.util.cli import add_website_home_option
 
 
@@ -14,7 +15,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__file__.__doc__)
     add_website_home_option(parser)
     args = parser.parse_args()
-    print(args.home)
     path = args.home / "_data" / "training-schools.yml"
     if path.is_file():
         edb = EventDatabase.from_file(path)
@@ -22,9 +22,8 @@ if __name__ == "__main__":
     else:
         print(f"Did not find database at {path}. Initializing empty one.")
         edb = EventDatabase()
-    edb.add_event(Event.input())
     edb.write(path)
     print(
-        "Added event to database. Please commit and submit a PR to add it to "
+        "Reformated database. Please commit and submit a PR to add it to "
         "the webpage."
     )
