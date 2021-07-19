@@ -80,6 +80,13 @@ class EventDatabase:
             self.events = events
         else:
             self.events = []
+        #: These lines get written to the top of the data file, e.g. comments
+        #: for usage.
+        self.prologue_lines = [
+            "# Sorted by ascending date => New events go on top",
+            "# You can use the scripts from https://github.com/HSF/website-helpers/"
+            "# to update or reformat this file interactively.",
+        ]
 
     @classmethod
     def from_file(cls, path: Path):
@@ -95,6 +102,7 @@ class EventDatabase:
             return event.date
 
         with path.open("w") as stream:
+            stream.writelines(self.prologue_lines)
             yaml.dump(
                 [
                     event.to_dict()
