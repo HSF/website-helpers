@@ -21,7 +21,7 @@ from hsf_website_helpers.util.log import logger
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__file__.__doc__)
-    parser.add_argument("--csv", type=Path)
+    parser.add_argument("--csv", type=Path, required=True)
     add_website_home_option(parser)
     args = parser.parse_args()
     data_dir = args.home / "_profiles"
