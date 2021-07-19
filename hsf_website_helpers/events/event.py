@@ -90,16 +90,15 @@ class EventDatabase:
             else:
                 return EventDatabase([Event(**dct) for dct in event_dict])
 
-    @staticmethod
-    def sort_key(event: Event):
-        return event.date
-
     def write(self, path: Path):
+        def sort_key(event: Event):
+            return event.date
+
         with path.open("w") as stream:
             yaml.dump(
                 [
                     event.to_dict()
-                    for event in sorted(self.events, key=self.sort_key)
+                    for event in sorted(self.events, key=sort_key, reverse=True)
                 ],
                 stream,
                 default_flow_style=False,
