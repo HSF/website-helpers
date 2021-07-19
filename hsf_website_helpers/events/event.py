@@ -84,7 +84,7 @@ class EventDatabase:
         #: for usage.
         self.prologue_lines = [
             "# Sorted by ascending date => New events go on top",
-            "# You can use the scripts from https://github.com/HSF/website-helpers/"
+            "# You can use the scripts from https://github.com/HSF/website-helpers/",
             "# to update or reformat this file interactively.",
         ]
 
@@ -102,7 +102,7 @@ class EventDatabase:
             return event.date
 
         with path.open("w") as stream:
-            stream.writelines(self.prologue_lines)
+            stream.writelines("\n".join(self.prologue_lines) + "\n")
             yaml.dump(
                 [
                     event.to_dict()
