@@ -40,7 +40,7 @@ def profiles_from_google_form(df: pd.DataFrame) -> Iterable[Profile]:
                 p.header["training_years"] = sorted(map(int, value.split(",")))
             elif k == "training_roles":
                 p.header["training_roles"] = [
-                    role for role in available_roles if role in value
+                    role for role in available_roles if role in value.lower()
                 ]
             else:
                 if value == "":
