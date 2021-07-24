@@ -1,13 +1,17 @@
 # HSF website helpers
 
-A collection of small scripts to update yaml/markdown files of [hsf.github.io](https://github.com/HSF/hsf.github.io/).
+[![Documentation Status](https://readthedocs.org/projects/hsf-website-helpers/badge/?version=latest)](https://hsf-website-helpers.readthedocs.io/en/latest/?badge=latest)
 
-Currently there are two use cases:
+A collection of small scripts to update yaml/markdown files for [hsf.github.io](https://github.com/HSF/hsf.github.io/).
 
-* Updating the [list of training schools](https://hepsoftwarefoundation.org/Schools/events.html)
-  using the `hsf-add-training-event.py` script.
-* Reformatting the list of training schools using the `hsf-reformat-training-events.py` script.
-* Updating [training community profiles](https://hepsoftwarefoundation.org/training/community.html)
-  using the `hsf-update-training-profiles.py` script.
+For an overview of the scripts, see [the documentation](https://hsf-website-helpers.readthedocs.io/en/latest/).
 
-Run `script --help` to get more help.
+## Installation
+
+Clone the repository and run
+
+```sh
+pip3 install -e .
+```
+
+in the directory.
