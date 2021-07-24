@@ -1,5 +1,8 @@
 version: 2
 
+build:
+    image: latest
+
 # Build from the docs/ directory with Sphinx
 sphinx:
   configuration: doc/source/conf.py
