@@ -26,7 +26,12 @@ def get_parser() -> argparse.ArgumentParser:
         "be added."
     )
     parser = argparse.ArgumentParser(description=d)
-    parser.add_argument("--csv", type=Path, required=True)
+    parser.add_argument(
+        "--csv",
+        type=Path,
+        required=True,
+        help="Path to CSV version of google doc",
+    )
     add_website_home_option(parser)
     return parser
 

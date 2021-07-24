@@ -24,4 +24,9 @@ def verified_path(path: Union[str, PurePath]) -> Path:
 
 
 def add_website_home_option(parser: argparse.ArgumentParser):
-    parser.add_argument("--home", type=verified_path, default=str(Path.cwd()))
+    parser.add_argument(
+        "--home",
+        type=verified_path,
+        default=str(Path.cwd()),
+        help="Path to HSF repository. Default is current working directory",
+    )
