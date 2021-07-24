@@ -19,10 +19,20 @@ from hsf_website_helpers.util.cli import add_website_home_option
 from hsf_website_helpers.util.log import logger
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__file__.__doc__)
+def get_parser() -> argparse.ArgumentParser:
+    d = (
+        "Reading from a csv dump of a google spreadsheet of google form "
+        "answers, update all profiles accordingly. New profiles will also "
+        "be added."
+    )
+    parser = argparse.ArgumentParser(description=d)
     parser.add_argument("--csv", type=Path, required=True)
     add_website_home_option(parser)
+    return parser
+
+
+if __name__ == "__main__":
+    parser = get_parser()
     args = parser.parse_args()
     data_dir = args.home / "_profiles"
     logger.info(f"Reading profiles from {data_dir}")

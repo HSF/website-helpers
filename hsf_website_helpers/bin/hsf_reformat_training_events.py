@@ -11,9 +11,18 @@ from hsf_website_helpers.events.event import EventDatabase
 from hsf_website_helpers.util.cli import add_website_home_option
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__file__.__doc__)
+def get_parser() -> argparse.ArgumentParser:
+    d = (
+        "Quick script to read all training schools from data file and write "
+        "them out again to e.g. update the formatting."
+    )
+    parser = argparse.ArgumentParser(description=d)
     add_website_home_option(parser)
+    return parser
+
+
+if __name__ == "__main__":
+    parser = get_parser()
     args = parser.parse_args()
     path = args.home / "_data" / "training-schools.yml"
     if path.is_file():

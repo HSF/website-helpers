@@ -27,6 +27,7 @@ repos:
     rev: 'v0.910'  # Use the sha / tag you want to point at
     hooks:
     -   id: mypy
+        exclude: doc/source/conf.py
         additional_dependencies:
         -   types-PyYAML
 -   repo: https://github.com/codespell-project/codespell
