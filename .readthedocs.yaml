@@ -3,12 +3,10 @@ version: 2
 build:
     image: latest
 
-# Build from the docs/ directory with Sphinx
 sphinx:
-  configuration: doc/source/conf.py
+  configuration: docs/source/conf.py
 
-# Explicitly set the version of Python and its requirements
 python:
   version: 3.7
   install:
-    - requirements: doc/source/requirements.txt
+    - requirements: docs/source/requirements.txt
