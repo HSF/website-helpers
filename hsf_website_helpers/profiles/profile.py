@@ -16,7 +16,7 @@ class Profile:
         "twitter",
         "gitlab",
         "bitbucket",
-        "orcide",
+        "orcid",
         "linkedin",
         "email",
     ]
@@ -31,7 +31,7 @@ class Profile:
         "twitter",
         "gitlab",
         "bitbucket",
-        "orcide",
+        "orcid",
         "linkedin",
         "email",
     ]
