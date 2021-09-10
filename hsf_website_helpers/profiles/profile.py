@@ -82,6 +82,8 @@ class Profile:
                 content_lines.append(line)
             else:
                 header_lines.append(line)
+        if not is_content:
+            logger.warning(f"Didn't find any content in {path}")
         p = cls()
         p.header = yaml.safe_load("\n".join(header_lines))
         p.content = "\n".join(content_lines)
@@ -129,3 +131,5 @@ class Profile:
             value = newer.header.get(key, "")
             if value is None or value.strip() != "":
                 self.header[key] = newer.header.get(key, None)
+        if newer.content is not None and newer.content.strip() != "":
+            self.content = newer.content
