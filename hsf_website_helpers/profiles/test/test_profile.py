@@ -29,7 +29,7 @@ def test_profile_read(test_profile):
     assert p.header["orcid"] == "0000-0003-2792-7511"
     assert (
         p.content == "Hi, I'm Kilian. I'm a PhD student for the Belle II "
-        "experiment and joined the HSF training group in 2020."
+        "experiment and joined the HSF training group in 2020.\n"
     )
 
 
