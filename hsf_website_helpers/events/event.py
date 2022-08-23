@@ -4,10 +4,13 @@ from typing import List, Optional, Union
 
 import yaml
 
+from hsf_website_helpers.util.log import logger
+
 
 class Event:
 
     default_false = ["url_proof_ignore"]
+    known_tags = {"HSF"}
 
     def __init__(
         self,
@@ -29,6 +32,9 @@ class Event:
         self.url_proof_ignore = url_proof_ignore
         if tags is None:
             tags = []
+        unknown_tags = set(tags) - self.known_tags
+        if unknown_tags:
+            logger.warning(f"Unknown tags: {unknown_tags}")
         self.tags = tags
 
         if not self.end_date >= self.date:
