@@ -62,7 +62,9 @@ class Event:
             deadline=input("Deadline [YYYY-MM-DD or ''] ").strip(),
             source=input("Url ").strip(),
             author=input("Author ").strip(),
-            tags=input("Tags (comma separated)").strip(),
+            tags=[
+                t.strip() for t in input("Tags (comma separated)").split(",")
+            ],
         )
         return tmp_event
 
