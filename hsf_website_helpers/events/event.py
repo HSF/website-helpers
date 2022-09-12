@@ -10,7 +10,8 @@ from hsf_website_helpers.util.log import logger
 class Event:
 
     default_false = ["url_proof_ignore"]
-    known_tags = {"HSF"}
+    hsf_tag = "HSF"
+    known_tags = {hsf_tag}
 
     def __init__(
         self,
@@ -35,6 +36,11 @@ class Event:
         unknown_tags = set(tags) - self.known_tags
         if unknown_tags:
             logger.warning(f"Unknown tags: {unknown_tags}")
+        if self.hsf_tag in tags:
+            logger.warning(
+                "Please make sure to also add the event to the IRIS-HEP "
+                "website."
+            )
         self.tags = tags
 
         if not self.end_date >= self.date:
