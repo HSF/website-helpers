@@ -36,11 +36,6 @@ class Event:
         unknown_tags = set(tags) - self.known_tags
         if unknown_tags:
             logger.warning(f"Unknown tags: {unknown_tags}")
-        if self.hsf_tag in tags:
-            logger.warning(
-                "Please make sure to also add the event to the IRIS-HEP "
-                "website."
-            )
         self.tags = tags
 
         if not self.end_date >= self.date:
@@ -78,6 +73,11 @@ class Event:
                 t.strip() for t in input("Tags (comma separated)").split(",")
             ],
         )
+        if cls.hsf_tag in tmp_event.tags:
+            logger.warning(
+                "Please make sure to also add the event to the IRIS-HEP "
+                "website."
+            )
         return tmp_event
 
     def to_dict(self):
