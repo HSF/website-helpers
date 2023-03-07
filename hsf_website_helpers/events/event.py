@@ -8,7 +8,6 @@ from hsf_website_helpers.util.log import logger
 
 
 class Event:
-
     default_false = ["url_proof_ignore"]
     hsf_tag = "HSF"
     known_tags = {hsf_tag}
