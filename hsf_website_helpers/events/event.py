@@ -1,4 +1,5 @@
 import datetime
+from dateutil import parser as date_parser
 from pathlib import Path
 from typing import List, Optional, Union
 
@@ -57,15 +58,15 @@ class Event:
         elif isinstance(date, datetime.date):
             return date
         else:
-            return datetime.datetime.strptime(date, "%Y-%m-%d").date()
+            return date_parser.parse(date).date()
 
     @classmethod
     def input(cls):
         tmp_event = Event(
             title=input("Event title ").strip(),
-            date=input("Start date [YYYY-MM-DD] ").strip(),
-            end_date=input("End date [YYYY-MM-DD] ").strip(),
-            deadline=input("Deadline [YYYY-MM-DD or ''] ").strip(),
+            date=input("Start date [any format] ").strip(),
+            end_date=input("End date [any format] ").strip(),
+            deadline=input("Deadline [any format or empty] ").strip(),
             source=input("Url ").strip(),
             author=input("Author ").strip(),
             tags=[
