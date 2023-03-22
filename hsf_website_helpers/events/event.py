@@ -69,7 +69,9 @@ class Event:
             source=input("Url ").strip(),
             author=input("Author ").strip(),
             tags=[
-                t.strip() for t in input("Tags (comma separated)").split(",")
+                t.strip()
+                for t in input("Tags (comma separated)").split(",")
+                if t.strip()
             ],
         )
         if cls.hsf_tag in tmp_event.tags:
