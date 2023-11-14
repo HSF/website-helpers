@@ -33,6 +33,6 @@ if __name__ == "__main__":
         edb = EventDatabase()
     edb.write(path)
     print(
-        "Reformated database. Please commit and submit a PR to add it to "
+        "Reformatted database. Please commit and submit a PR to add it to "
         "the webpage."
     )
