@@ -4,7 +4,6 @@ import pandas as pd
 
 from hsf_website_helpers.profiles.profile import Profile
 
-
 header_mapping = {
     "Your name": "title",
     "Years active in training": "training_years",
