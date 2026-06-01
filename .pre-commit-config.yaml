@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 26.3.1
+    rev: 26.5.1
     hooks:
     -   id: black
         args: ["-l", "80", "-t", "py37"]
@@ -23,7 +23,7 @@ repos:
     -   id: flake8
         exclude: ^notebooks
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.20.2'  # Use the sha / tag you want to point at
+    rev: 'v2.1.0'  # Use the sha / tag you want to point at
     hooks:
     -   id: mypy
         exclude: docs/conf.py
