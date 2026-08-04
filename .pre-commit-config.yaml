@@ -23,7 +23,7 @@ repos:
     -   id: flake8
         exclude: ^notebooks
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v2.1.0'  # Use the sha / tag you want to point at
+    rev: 'v2.3.0'  # Use the sha / tag you want to point at
     hooks:
     -   id: mypy
         exclude: docs/conf.py
@@ -31,7 +31,7 @@ repos:
         -   types-python-dateutil
         -   types-PyYAML
 -   repo: https://github.com/codespell-project/codespell
-    rev: 'v2.4.2'
+    rev: 'v2.4.3'
     hooks:
     -   id: codespell
         args: ["-I", "codespell.txt"]
